@@ -1,12 +1,9 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/client-session.php");
+include(__DIR__ . "/partials/client-session.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
 <?php
 $pageTitle = "PawTrack - My Pets";
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
 if (isset($_GET['pet_id'])) {
     $petID = $_GET['pet_id'];
     $pet = $fetch->getPetDetails($petID);
@@ -28,7 +25,7 @@ if (isset($_GET['pet_id'])) {
     <div class="top-bar"></div>
 
     <!-- Navigation Bar -->
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/pawtrack/frontend/partials/client-nav.php'; ?>
+    <?php include(__DIR__ . '/partials/client-nav.php'); ?>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -209,4 +206,3 @@ if (isset($_GET['pet_id'])) {
     <script src=" /pawtrack/assets/js/script.js"></script>
 </body>
 
-</html>

@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
 <?php
 $pageTitle = "PawTrack - Contact Us";
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
 ?>
 
 <body>
@@ -11,7 +8,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
     <div class="top-bar"></div>
 
     <!-- Navigation Bar -->
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/pawtrack/frontend/partials/client-nav.php'; ?>
+    <?php include(__DIR__ . '/partials/client-nav.php'); ?>
 
     <!-- Main Content -->
     <div class="contact-main">
@@ -30,7 +27,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
                 </div>
 
                 <div class="contact-image-wrapper">
-                    <img src="/pawtrack/assets/images/contact_girl_dog.png" alt="Girl with dog" class="contact-image">
+                    <img src="/assets/images/contact_girl_dog.png" alt="Girl with dog" class="contact-image">
                 </div>
             </div>
         </div>
@@ -71,5 +68,3 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=" /pawtrack/assets/js/script.js"></script>
 </body>
-
-</html>

@@ -1,25 +1,22 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/client-session.php");
+include(__DIR__ . "/partials/client-session.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 
 <?php
 $pageTitle = "PawTrack - Dashboard";
 
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
+include(__DIR__ . "/partials/head.php");
 ?>
 
 <body>
     <!-- Top Brown Bar -->
     <div class="top-bar"></div>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/pawtrack/frontend/partials/client-nav.php'; ?>
+    <?php include(__DIR__ . '/partials/client-nav.php'); ?>
 
     <!-- Main Content -->
     <div class="main-content">
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/pawtrack/frontend/partials/client-profile-card.php'; ?>
+        <?php include(__DIR__ . '/partials/client-profile-card.php'); ?>
 
         <!-- My Pets Section -->
         <div class="pets-section">
@@ -34,7 +31,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
                 <?php if (!empty($pets)): ?>
                     <?php foreach ($pets as $pet): ?>
                         <a href="pets.php?pet_id=<?= urlencode($pet['PetID']) ?>" class="pet-card clickable">
-                            <img src="/pawtrack/storage/images/pets/<?= htmlspecialchars($pet['PetPic']) ?>"
+                            <img src="/storage/images/pets/<?= htmlspecialchars($pet['PetPic']) ?>"
                                 alt="<?= htmlspecialchars($pet['PetName']) ?>" class="pet-image">
                         </a>
                     <?php endforeach; ?>
@@ -61,4 +58,3 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
     <script src=" /pawtrack/assets/js/script.js"></script>
 </body>
 
-</html>

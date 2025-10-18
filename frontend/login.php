@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
 $pageTitle = "PawTrack - Login";
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
 ?>
 
 <body class="auth-page">
@@ -44,7 +40,3 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/pawtrack/assets/js/login.js"></script>
 </body>
-
-</html>
-
-?>
