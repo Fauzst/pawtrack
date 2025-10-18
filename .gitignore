@@ -1,0 +1,9 @@
+# Env File
+.env
+
+# Ignore storage/images
+storage/
+
+# Ignore none code files
+*.pdf
+
