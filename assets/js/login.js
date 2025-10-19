@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("loginType", loginType);
 
       try {
-        const response = await fetch("/pawtrack/backend/login.php", {
+        const response = await fetch("/backend/login.php", {
           method: "POST",
           body: formData,
         });

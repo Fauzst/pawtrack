@@ -30,7 +30,7 @@ $pageTitle = "PawTrack - Login";
                     <button type="submit" id="signInBtn" class="auth-btn">Sign In</button>
 
                     <div class="auth-link">
-                        <a href="/pawtrack/frontend/signup.php">No account? Sign up</a>
+                        <a href="/signup">No account? Sign up</a>
                     </div>
                 </form>
             </div>
@@ -38,5 +38,5 @@ $pageTitle = "PawTrack - Login";
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/pawtrack/assets/js/login.js"></script>
+    <script src="/assets/js/login.js"></script>
 </body>
