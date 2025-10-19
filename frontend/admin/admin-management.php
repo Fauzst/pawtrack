@@ -1,12 +1,11 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/admin-session.php");
+include(__DIR__ . "/../partials/admin-session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
 $pageTitle = "PawTrack - Admin Management";
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
 ?>
 
 <body>
@@ -34,15 +33,15 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
         <!-- Sidebar -->
         <aside class="admin-sidebar">
             <div class="admin-profile-card">
-                <img src="/pawtrack/storage/images/admin/<?= $pic ?>" alt="Admin Profile" class="vet-profile-image">
+                <img src="<?= $pic ?>" alt="Admin Profile" class="vet-profile-image">
                 <h3 class="admin-title">Admin</h3>
                 <p class="admin-subtitle"><?= $fname . ' ' . $sname ?></p>
 
                 <div class="admin-menu">
-                    <button class="admin-menu-item active" onclick="location.href='admin-management.php'">
+                    <button class="admin-menu-item active" onclick="location.href='/admin/management'">
                         <i class="fa-solid fa-users-gear"></i> Management
                     </button>
-                    <button class="admin-menu-item" onclick="location.href='admin-audit.php'">
+                    <button class="admin-menu-item" onclick="location.href='/admin/audit'">
                         <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
                     </button>
                 </div>
@@ -57,7 +56,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
         <main class="admin-content-area">
             <div class="admin-actions-grid">
                 <!-- Manage Users Card -->
-                <div class="admin-action-card" onclick="location.href='admin-manage-users.php'">
+                <div class="admin-action-card" onclick="location.href='/admin/manage-users'">
                     <i class="fa-solid fa-user-plus admin-action-icon"></i>
                     <h3 class="admin-action-title">Manage Users</h3>
                 </div>
@@ -75,7 +74,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
     <div class="paw-pattern"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src=" /pawtrack/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 
 </html>

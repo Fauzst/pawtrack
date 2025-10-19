@@ -1,12 +1,11 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/admin-session.php");
+include(__DIR__ . "../partials/admin-session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
 $pageTitle = "PawTrack - Audit Logs";
-include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
 ?>
 
 <body>
@@ -39,10 +38,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pawtrack/frontend/partials/head.php");
                 <p class="admin-subtitle"><?= $fname . ' ' . $sname ?></p>
 
                 <div class="admin-menu">
-                    <button class="admin-menu-item" onclick="location.href='admin-management.php'">
+                    <button class="admin-menu-item" onclick="location.href='/admin/management'">
                         <i class="fa-solid fa-users-gear"></i> Management
                     </button>
-                    <button class="admin-menu-item active" onclick="location.href='admin-audit.php'">
+                    <button class="admin-menu-item active" onclick="location.href='/admin/audit'">
                         <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
                     </button>
                 </div>

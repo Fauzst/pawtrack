@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             http_response_code(400);
-            echo json_encode(["status" => "error", "message" => "Invalid password"]);
+            echo json_encode(["status" => "error", "message" => "Invalid password! Password: $password, HashedPassword: $hashedPassword"]);
         }
     } else {
         http_response_code(404);

@@ -19,7 +19,12 @@ $routes = [
     "/contact" => "frontend/contact.php",
     "/dashboard" => "frontend/dashboard.php",
     "/faqs" => "frontend/faqs.php",
-    "/pets" => "frontend/pets.php"
+    "/pets" => "frontend/pets.php",
+    "/admin/login" => "frontend/admin/admin-login.php",
+    "/vet/login" => "frontend/vet/vet-login.php",
+    "/admin/audit" => "frontend/admin/admin-audit.php",
+    "/admin/management" => "frontend/admin/admin-management.php",
+    "/admin/manage-users" => "frontend/admin/admin-manage-user.php"
 ];
 
 //=============================

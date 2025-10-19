@@ -99,7 +99,7 @@ function logout() {
     confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "/pawtrack/backend/logout.php";
+      window.location.href = "/logout.php";
     }
   });
 }
@@ -114,7 +114,7 @@ function adminLogout() {
     confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "/pawtrack/backend/admin-logout.php";
+      window.location.href = "/";
     }
   });
 }

@@ -26,10 +26,16 @@ $pageTitle = "PawTrack - Login";
                         <input type="password" id="password" name="password" placeholder="Enter password">
                         <span id="passwordError" class="error-message"></span>
                     </div>
-
+                
                     <button type="submit" id="signInBtn" class="auth-btn">Sign In</button>
 
                     <div class="auth-link">
+                        <p>Sign up as:</p>
+                        <div>
+                            <a href="/admin/login">Admin</a>
+                        <a href="/vet/login">Veterinarian</a>
+                        </div>
+                        <hr>
                         <a href="/signup">No account? Sign up</a>
                     </div>
                 </form>
