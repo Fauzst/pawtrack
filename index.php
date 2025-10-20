@@ -24,7 +24,11 @@ $routes = [
     "/vet/login" => "frontend/vet/vet-login.php",
     "/admin/audit" => "frontend/admin/admin-audit.php",
     "/admin/management" => "frontend/admin/admin-management.php",
-    "/admin/manage-users" => "frontend/admin/admin-manage-user.php"
+    "/admin/manage-users" => "frontend/admin/admin-manage-user.php",
+    "/vet/pet-details" => "frontend/vet/vet-pet-details.php",
+    "/vet/profile" => "frontend/vet/vet-profile.php",
+    "/vet/search" => "frontend/vet/vet-search.php"
+    
 ];
 
 //=============================

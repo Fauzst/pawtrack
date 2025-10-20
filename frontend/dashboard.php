@@ -56,5 +56,6 @@ include(__DIR__ . "/partials/head.php");
     <div class="paw-pattern"></div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=" /assets/js/script.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
 </body>
 

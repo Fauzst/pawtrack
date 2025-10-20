@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . "../partials/admin-session.php");
+include(__DIR__ . "/../partials/admin-session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

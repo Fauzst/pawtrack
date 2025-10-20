@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+require_once __DIR__ . '/db.php';
 date_default_timezone_set('Asia/Manila');
 
 class fetchClass extends DBConnect
@@ -69,6 +69,14 @@ class fetchClass extends DBConnect
     {
         $stmt = $this->conn->prepare("SELECT * FROM vet WHERE VetID = ?");
         $stmt->bind_param("s", $vetID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getPetDetailsByChipNum($petChipNum)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM pet WHERE PetChipNum = ?");
+        $stmt->bind_param("s", $petChipNum);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }

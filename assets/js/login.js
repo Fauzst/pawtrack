@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         case "vet-loginForm":
           console.log("Role: Vet");
           loginType = "vet";
-          redirectURL = "/frontend/vet/vet-profile.php";
+          redirectURL = "/vet/profile";
           break;
 
         case "admin-loginForm":

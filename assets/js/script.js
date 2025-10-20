@@ -84,7 +84,7 @@ function vetLogout() {
     confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "/pawtrack/backend/vet-logout.php";
+      window.location.href = "/vet/login";
     }
   });
 }
@@ -99,7 +99,7 @@ function logout() {
     confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "/logout.php";
+      window.location.href = "/";
     }
   });
 }
@@ -167,15 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         alert("Please enter a valid microchip number (15 or 17 digits)");
       }
-    });
-  }
-
-  // Add expand button functionality
-  const expandBtn = document.querySelector(".expand-btn");
-  if (expandBtn) {
-    expandBtn.addEventListener("click", function () {
-      alert("Expand functionality - Add new pet");
-      // This would open a modal or form to add a new pet
     });
   }
 

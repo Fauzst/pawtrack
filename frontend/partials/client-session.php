@@ -1,5 +1,6 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "../backend/fetch-class.php");
+// Use a correct absolute path to include backend files safely and only once
+require_once __DIR__ . '/../../backend/fetch-class.php';
 session_start();
 if (!isset($_SESSION['ClientID'])) {
     header("Location: /");
