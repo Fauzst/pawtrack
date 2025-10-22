@@ -27,11 +27,20 @@ $routes = [
     "/admin/manage-users" => "frontend/admin/admin-manage-user.php",
     "/vet/pet-details" => "frontend/vet/vet-pet-details.php",
     "/vet/profile" => "frontend/vet/vet-profile.php",
-    "/vet/search" => "frontend/vet/vet-search.php"
-    
+    "/vet/search" => "frontend/vet/vet-search.php",
+    "/vaccination" => "frontend/vaccination.php",
+    "/medical-records" => "frontend/medical-records.php",
+    "/notes" => "frontend/notes.php",
 ];
 
 //=============================
+
+if (preg_match('#^/pets/([A-Za-z0-9]+)$#', $path, $matches)) {
+    $_GET['pet_id'] = $matches[1]; // store PetID in GET
+    include "frontend/pets.php";
+    exit;
+}
+
 if (isset($routes[$path])) {
     include $routes[$path];
 } else {

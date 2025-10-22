@@ -80,5 +80,17 @@ class fetchClass extends DBConnect
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    /**
+     * Fetch client details by ClientID
+     * Returns associative array with keys matching frontend expectations
+     */
+    public function getClientDetails($clientID)
+    {
+        $stmt = $this->conn->prepare("SELECT ClientID, ClientFName AS FirstName, ClientLName AS LastName, ClientEmail AS Email, ClientStartDate AS CreatedAt, ClientPic FROM client WHERE ClientID = ?");
+        $stmt->bind_param("s", $clientID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }
 ?>

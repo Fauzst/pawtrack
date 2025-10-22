@@ -1,0 +1,14 @@
+<br />
+<b>Warning</b>:  include(C:\xampp\htdocs\pawtrack\lib\fpdf/font/helveticab.php): Failed to open stream: No such file or directory in <b>C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php</b> on line <b>1137</b><br />
+<br />
+<b>Warning</b>:  include(): Failed opening 'C:\xampp\htdocs\pawtrack\lib\fpdf/font/helveticab.php' for inclusion (include_path='C:\xampp\php\PEAR') in <b>C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php</b> on line <b>1137</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught Exception: FPDF error: Could not include font definition file: C:\xampp\htdocs\pawtrack\lib\fpdf/font/helveticab.php in C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php:267
+Stack trace:
+#0 C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php(1139): FPDF-&gt;Error('Could not inclu...')
+#1 C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php(461): FPDF-&gt;_loadfont('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php(510): FPDF-&gt;AddFont('helvetica', 'B')
+#3 C:\xampp\htdocs\pawtrack\backend\vet-class.php(198): FPDF-&gt;SetFont('helvetica', 'B', 16)
+#4 C:\xampp\htdocs\pawtrack\backend\download-pet-record.php(9): Vet-&gt;downloadFullPetRecord('P001')
+#5 {main}
+  thrown in <b>C:\xampp\htdocs\pawtrack\lib\fpdf\fpdf.php</b> on line <b>267</b><br />

@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
           // ✅ Main Profile Info Section (optional elements)
           const fullNameTag = document.getElementById("vetNameFull");
           if (fullNameTag) fullNameTag.textContent = `Dr. ${vet.VetFName} ${vet.VetSName}`;
+          // ✅ Employee ID and Email
+          const vetIdTag = document.getElementById("vetID");
+          const vetEmailTag = document.getElementById("vetEmail");
+          if (vetIdTag) vetIdTag.textContent = vet.VetID || ''; 
+          if (vetEmailTag) vetEmailTag.textContent = vet.VetEmail || '';
         }
       });
   }

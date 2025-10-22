@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *"); 
 
-include 'fetch-class.php'; 
+require_once __DIR__ . '/fetch-class.php'; 
 session_start(); 
 
 try {

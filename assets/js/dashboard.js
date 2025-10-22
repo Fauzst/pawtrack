@@ -2,10 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const expandBtn = document.querySelector(".expand-btn");
   if (!expandBtn) return;
 
+  // Open modal when ⊕ button is clicked
   expandBtn.addEventListener("click", openAddPetModal);
 });
 
-// Function to create and show the modal
+// Function to create and show the Add Pet modal
 function openAddPetModal() {
   // Prevent multiple modals
   if (document.getElementById("addPetModal")) return;
@@ -17,7 +18,7 @@ function openAddPetModal() {
     <div class="modal-content">
       <span class="close-btn" onclick="closeAddPetModal()">&times;</span>
       <h2>Add a New Pet</h2>
-      <form id="addPetForm">
+      <form id="addPetForm" enctype="multipart/form-data">
         <label>Pet Microchip Number</label>
         <input type="text" name="PetChipNum" required>
 
@@ -55,8 +56,9 @@ function openAddPetModal() {
   `;
   document.body.appendChild(modal);
 
+  // Handle form submission
   const form = document.getElementById("addPetForm");
-  form.addEventListener("submit", async e => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -67,7 +69,6 @@ function openAddPetModal() {
         body: formData
       });
 
-      // Check if the response is JSON
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         throw new Error("Server did not return JSON.");
@@ -86,8 +87,8 @@ function openAddPetModal() {
 
         closeAddPetModal();
 
-        // Optional: dynamically add the new pet card to the pets list
-        appendNewPetCard(data.PetID, data.PetName, data.PetPic);
+        // Dynamically add the new pet card to the pets list
+        appendNewPetCard(data.PetID, formData.get("PetName"), data.PetPic);
       } else {
         Swal.fire("Error", data.message, "error");
       }
@@ -98,13 +99,13 @@ function openAddPetModal() {
   });
 }
 
-// Function to close modal
+// Function to close the modal
 function closeAddPetModal() {
   const modal = document.getElementById("addPetModal");
   if (modal) modal.remove();
 }
 
-// Optional helper to append new pet card to pets section dynamically
+// Helper function to append new pet card dynamically
 function appendNewPetCard(petID, petName, petPic) {
   const petsContainer = document.querySelector(".pets-container");
   if (!petsContainer) return;

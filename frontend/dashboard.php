@@ -30,7 +30,7 @@ include(__DIR__ . "/partials/head.php");
             <div class="pets-container">
                 <?php if (!empty($pets)): ?>
                     <?php foreach ($pets as $pet): ?>
-                        <a href="pets.php?pet_id=<?= urlencode($pet['PetID']) ?>" class="pet-card clickable">
+                        <a href="/pets/<?= urlencode($pet['PetID']) ?>" class="pet-card clickable">
                             <img src="/storage/images/pets/<?= htmlspecialchars($pet['PetPic']) ?>"
                                 alt="<?= htmlspecialchars($pet['PetName']) ?>" class="pet-image">
                         </a>
@@ -39,6 +39,7 @@ include(__DIR__ . "/partials/head.php");
                     <p class="no-pets">No pets found. Add one to get started!</p>
                 <?php endif; ?>
             </div>
+
 
             <!-- Microchip Scanner -->
             <div class="scanner-section">
