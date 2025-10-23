@@ -48,11 +48,13 @@ $pageTitle = "PawTrack - Admin Management";
                     <button class="admin-menu-item active" onclick="location.href='/admin/management'">
                         <i class="fa-solid fa-users-gear"></i> Management
                     </button>
+                    <!--
                     <button class="admin-menu-item" onclick="location.href='/admin/audit'">
                         <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
                     </button>
+                     -->
                 </div>
-
+                
                 <button class="admin-logout-btn" onclick="adminLogout()">
                     <i class="fa-solid fa-right-from-bracket"></i> Log Out
                 </button>
@@ -68,11 +70,12 @@ $pageTitle = "PawTrack - Admin Management";
                     <h3 class="admin-action-title">Manage Users</h3>
                 </div>
 
-                <!-- Edit User Card -->
+                <!-- Edit User Card 
                 <div class="admin-action-card" onclick="alert('Edit User feature')">
                     <i class="fa-solid fa-pen admin-action-icon"></i>
                     <h3 class="admin-action-title">Edit User</h3>
                 </div>
+                -->
             </div>
         </main>
     </div>

@@ -35,6 +35,14 @@ body {
   opacity: 0.3;
 }
 
+html {
+  height: 1vh;      /* 1% of the viewport height */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;  /* hide any content that overflows */
+}
+
+
 /* Top Brown Bar */
 .top-bar {
   height: 8px;
@@ -102,8 +110,8 @@ body {
 /* Main Content */
 .main-content {
   max-width: 1400px;
-  margin: 40px auto;
-  padding: 0 50px;
+  margin: 60px auto;
+  padding: 0 0px;
   display: flex;
   gap: 30px;
   position: relative;
@@ -118,9 +126,10 @@ body {
 .profile-card {
   background-color: #ff7f2a;
   padding: 25px;
-  border-radius: 10px;
+  border-radius: 5px;
   text-align: center;
   color: white;
+  min-height: 100%;
 }
 
 .profile-image {
@@ -792,8 +801,8 @@ body {
 .vet-main-content {
   display: flex;
   max-width: 1400px;
+  min-height: 44rem;
   margin: 0 auto;
-  padding: 40px 50px;
   gap: 30px;
   position: relative;
   z-index: 1;
@@ -815,12 +824,22 @@ body {
 
 .vet-sidebar {
   flex: 0 0 220px;
+  max-height: 50rem;
+  position: relative;
+  left: -6.5rem;
+}
+
+.vet-btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 25rem;
 }
 
 .vet-profile-card {
   background-color: #ff7f2a;
   padding: 25px;
-  border-radius: 10px;
+  height: 100%;
   text-align: center;
   color: white;
 }
@@ -892,6 +911,14 @@ body {
 
 .vet-content-area {
   flex: 1;
+  margin: 30px;
+  max-height: 40rem;
+  overflow-x: hidden;
+
+}
+
+.vet-content-area::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 .vet-info-card {
@@ -984,7 +1011,7 @@ body {
 }
 
 .vet-pet-image-card {
-  grid-row: 1 / 3;
+  grid-row: 1 / 2;
   background-color: white;
   padding: 15px;
   border-radius: 10px;
@@ -1006,6 +1033,10 @@ body {
   padding: 20px;
   border-radius: 10px;
   color: white;
+}
+
+.vet-email-card {
+  grid-column: 1 / 3;
 }
 
 .vet-card-title {
@@ -1467,4 +1498,24 @@ body {
 
 .user-popout {
   z-index: 99998 !important; /* Popout slightly below the Swal modals */
+}
+
+.edit-btn {
+  background-color: #ff7f2a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }

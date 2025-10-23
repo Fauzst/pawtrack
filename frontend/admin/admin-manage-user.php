@@ -21,7 +21,9 @@ $pageTitle = "PawTrack - Audit Logs";
                 <button class="admin-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <button class="admin-btn" onclick="window.location.href='/admin/management'">Management</button>
+                    <!--
                     <button class="admin-btn" onclick=""window.location.href='/admin/audit'>Audit</button>
+                    -->     
                 </button>
             </div>
             <div class="admin-nav-icon">

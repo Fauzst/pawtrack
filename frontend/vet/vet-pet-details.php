@@ -18,7 +18,7 @@ include(__DIR__ . "/../partials/head.php");
         <div class="nav-container">
             <div class="logo">PawTrack</div>
             <ul class="nav-links">
-                <li><a href="vet-search.php" class="active">Dashboard</a></li>
+               <!-- <li><a href="vet-search.php" class="active">Dashboard</a></li> -->
             </ul>
             <div class="vet-nav-icons">
                 <i class="fa-solid fa-bell"></i>
@@ -34,7 +34,7 @@ include(__DIR__ . "/../partials/head.php");
             <div class="vet-profile-card">
                 <img src="" alt="Vet Profile" class="vet-profile-image">
                 <h3 class="vet-name">Loading...</h3>
-
+                <div class="vet-btn-container">
                 <div class="vet-menu">
                     <button class="vet-menu-item" onclick="location.href='/vet/profile'">
                         <i class="fa-solid fa-user"></i> Profile
@@ -47,6 +47,7 @@ include(__DIR__ . "/../partials/head.php");
                 <button class="vet-logout-btn" onclick="vetLogout()">
                     <i class="fa-solid fa-right-from-bracket"></i> Log Out
                 </button>
+                </div>
             </div>
         </aside>
 

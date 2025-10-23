@@ -18,7 +18,7 @@ include(__DIR__ . "/../partials/head.php");
         <div class="nav-container">
             <div class="logo">PawTrack</div>
             <ul class="nav-links">
-                <li><a href="vet-profile.php" class="active">Dashboard</a></li>
+               <!-- <li><a href="vet-profile.php" class="active">Dashboard</a></li> -->
             </ul>
             <div class="vet-nav-icons">
                 <i class="fa-solid fa-bell"></i>
@@ -34,19 +34,20 @@ include(__DIR__ . "/../partials/head.php");
             <div class="vet-profile-card">
                 <img src="" alt="Vet Profile" class="vet-profile-image" id="vetProfileImage">
                 <h3 class="vet-name" id="vetName">Loading...</h3>
-
-                <div class="vet-menu">
+                <div class="vet-btn-container">
+                    <div class="vet-menu">
                     <button class="vet-menu-item active" onclick="location.href='/vet/profile'">
                         <i class="fa-solid fa-user"></i> Profile
                     </button>
                     <button class="vet-menu-item" onclick="location.href='/vet/pet-details'">
                         <i class="fa-solid fa-file-lines"></i> Reports
                     </button>
+                    </div>
+                    <button class="vet-logout-btn" onclick="vetLogout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                    </button>
                 </div>
-
-                <button class="vet-logout-btn" onclick="vetLogout()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
-                </button>
+                
             </div>
         </aside>
 

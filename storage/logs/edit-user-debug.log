@@ -4759,3 +4759,296 @@ values=Array
 )
 
 executeOk=1 error= affected=1
+
+---- 2025-10-24T04:22:47+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO admin (AdminID, AdminFName, AdminSName, AdminEmail, AdminPassword, AdminPic, AdminStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => A005
+    [1] => jay
+    [2] => a
+    [3] => jay@email.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761243023.png
+    [6] => 2025-10-19
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C003
+)
+
+
+---- 2025-10-24T04:23:07+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO vet (VetID, VetFName, VetSName, VetEmail, VetPassword, VetPic, VetStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => V009
+    [1] => jay
+    [2] => a
+    [3] => jay@email.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761243023.png
+    [6] => 2025-10-19
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C003
+)
+
+
+---- 2025-10-24T04:24:02+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO admin (AdminID, AdminFName, AdminSName, AdminEmail, AdminPassword, AdminPic, AdminStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => A006
+    [1] => Final
+    [2] => Test
+    [3] => final@example.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761129693.jpg
+    [6] => 2024-05-11
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM vet WHERE VetID=?
+values=Array
+(
+    [0] => V007
+)
+
+
+---- 2025-10-24T04:24:09+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO vet (VetID, VetFName, VetSName, VetEmail, VetPassword, VetPic, VetStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => V010
+    [1] => Final
+    [2] => Test
+    [3] => final@example.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761129693.jpg
+    [6] => 2024-05-11
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM admin WHERE AdminID=?
+values=Array
+(
+    [0] => A006
+)
+
+
+---- 2025-10-24T04:24:15+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO client (ClientID, ClientFName, ClientLName, ClientEmail, ClientPassword, ClientPic, ClientStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => C004
+    [1] => Final
+    [2] => Test
+    [3] => final@example.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761129693.jpg
+    [6] => 2024-05-11
+)
+
+
+---- 2025-10-24T04:24:32+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO admin (AdminID, AdminFName, AdminSName, AdminEmail, AdminPassword, AdminPic, AdminStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => A006
+    [1] => jay
+    [2] => a
+    [3] => jay@email.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761243023.png
+    [6] => 2025-10-19
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C003
+)
+
+
+---- 2025-10-24T04:24:52+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO admin (AdminID, AdminFName, AdminSName, AdminEmail, AdminPassword, AdminPic, AdminStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => A007
+    [1] => Julia
+    [2] => Abigail
+    [3] => julia.abigail@email.com
+    [4] => ***
+    [5] => client2.png
+    [6] => 2024-06-20
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C002
+)
+
+
+---- 2025-10-24T04:25:00+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO vet (VetID, VetFName, VetSName, VetEmail, VetPassword, VetPic, VetStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => V011
+    [1] => Julia
+    [2] => Abigail
+    [3] => julia.abigail@email.com
+    [4] => ***
+    [5] => client2.png
+    [6] => 2024-06-20
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C002
+)
+
+
+---- 2025-10-24T04:27:02+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO vet (VetID, VetFName, VetSName, VetEmail, VetPassword, VetPic, VetStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => V012
+    [1] => jay
+    [2] => a
+    [3] => jay@email.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761243023.png
+    [6] => 2025-10-19
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM client WHERE ClientID=?
+values=Array
+(
+    [0] => C003
+)
+
+
+---- 2025-10-24T04:27:39+08:00 ----
+isForm=0
+_POST=Array
+(
+)
+
+_FILES=Array
+(
+)
+
+prepared_sql=INSERT INTO admin (AdminID, AdminFName, AdminSName, AdminEmail, AdminPassword, AdminPic, AdminStartDate) VALUES (?, ?, ?, ?, ?, ?, ?)
+values=Array
+(
+    [0] => A008
+    [1] => Final
+    [2] => Test
+    [3] => final@example.com
+    [4] => ***
+    [5] => /storage/images/C/C_1761129693.jpg
+    [6] => 2024-05-11
+)
+
+insert_execute_ok=1 error=
+prepared_sql=DELETE FROM vet WHERE VetID=?
+values=Array
+(
+    [0] => V010
+)
+
