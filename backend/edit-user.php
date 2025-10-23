@@ -49,19 +49,8 @@ try {
         'client'=> ['table' => 'client','idCol' => 'ClientID','fname' => 'ClientFName','lname' => 'ClientLName','email' => 'ClientEmail','pass'=>'ClientPassword','pic'=>'ClientPic','start'=>'ClientStartDate','prefix'=>'C']
     ];
 
-    // normalize and validate roles
-    $role = is_string($role) ? strtolower(trim($role)) : '';
-    $newRole = is_string($newRole) ? strtolower(trim($newRole)) : $role;
-
-    if (!array_key_exists($role, $tables)) {
-        http_response_code(400);
-        echo json_encode(["status"=>"error","message"=>"Invalid or missing role: {$role}"]);
-        exit;
-    }
-    if (!array_key_exists($newRole, $tables)) {
-        http_response_code(400);
-        echo json_encode(["status"=>"error","message"=>"Invalid newRole: {$newRole}"]);
-        exit;
+    if (!isset($tables[$role]) || !isset($tables[$newRole])) {
+        throw new Exception("Invalid role");
     }
 
     $source = $tables[$role];
@@ -82,9 +71,9 @@ try {
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
             $ext = pathinfo($_FILES['pic']['name'], PATHINFO_EXTENSION);
             $filename = $source['prefix'] . '_' . time() . '.' . $ext;
-            $targetPath = $uploadDir . '/' . $filename;
+            $target = $uploadDir . '/' . $filename;
             $moved = false;
-            if (move_uploaded_file($_FILES['pic']['tmp_name'], $targetPath)) {
+            if (move_uploaded_file($_FILES['pic']['tmp_name'], $target)) {
                 // Build web-accessible path for frontend preview
                 if ($source['prefix'] === 'A') {
                     // store full web path for admins without the /pawtrack prefix
@@ -98,7 +87,7 @@ try {
                 $moved = true;
             }
             // log move result
-            @file_put_contents($logFile, "moved=" . ($moved ? '1' : '0') . " target={$targetPath}\n", FILE_APPEND);
+            @file_put_contents($logFile, "moved=" . ($moved ? '1' : '0') . " target={$target}\n", FILE_APPEND);
         }
 
         // collect vet-specific fields if present
@@ -111,30 +100,18 @@ try {
         if (!empty($storePicValue)) {
             // store filename only in DB (actually storing web path string)
             if ($role === 'vet') {
-                $sql = "UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, {$source['pic']}=?, VetSpecialization=?, VetLicenseNo=?, VetExperience=?, VetContact=?, ClinicBranch=? WHERE {$source['idCol']}=?";
-                $values = [$fname, $lname, $newEmail, $storePicValue, $vetSpec, $vetLicense, $vetExp, $vetContact, $clinicBranch, $id];
-                @file_put_contents($logFile, "prepared_sql=" . $sql . "\nvalues=" . print_r($values, true) . "\n", FILE_APPEND);
-                $query = $fetch->conn->prepare($sql);
+                $query = $fetch->conn->prepare("UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, {$source['pic']}=?, VetSpecialization=?, VetLicenseNo=?, VetExperience=?, VetContact=?, ClinicBranch=? WHERE {$source['idCol']}=?");
                 $query->bind_param("ssssssisss", $fname, $lname, $newEmail, $storePicValue, $vetSpec, $vetLicense, $vetExp, $vetContact, $clinicBranch, $id);
             } else {
-                $sql = "UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, {$source['pic']}=? WHERE {$source['idCol']}=?";
-                $values = [$fname, $lname, $newEmail, $storePicValue, $id];
-                @file_put_contents($logFile, "prepared_sql=" . $sql . "\nvalues=" . print_r($values, true) . "\n", FILE_APPEND);
-                $query = $fetch->conn->prepare($sql);
+                $query = $fetch->conn->prepare("UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, {$source['pic']}=? WHERE {$source['idCol']}=?");
                 $query->bind_param("sssss", $fname, $lname, $newEmail, $storePicValue, $id);
             }
         } else {
             if ($role === 'vet') {
-                $sql = "UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, VetSpecialization=?, VetLicenseNo=?, VetExperience=?, VetContact=?, ClinicBranch=? WHERE {$source['idCol']}=?";
-                $values = [$fname, $lname, $newEmail, $vetSpec, $vetLicense, $vetExp, $vetContact, $clinicBranch, $id];
-                @file_put_contents($logFile, "prepared_sql=" . $sql . "\nvalues=" . print_r($values, true) . "\n", FILE_APPEND);
-                $query = $fetch->conn->prepare($sql);
+                $query = $fetch->conn->prepare("UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=?, VetSpecialization=?, VetLicenseNo=?, VetExperience=?, VetContact=?, ClinicBranch=? WHERE {$source['idCol']}=?");
                 $query->bind_param("ssssssiss", $fname, $lname, $newEmail, $vetSpec, $vetLicense, $vetExp, $vetContact, $clinicBranch, $id);
             } else {
-                $sql = "UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=? WHERE {$source['idCol']}=?";
-                $values = [$fname, $lname, $newEmail, $id];
-                @file_put_contents($logFile, "prepared_sql=" . $sql . "\nvalues=" . print_r($values, true) . "\n", FILE_APPEND);
-                $query = $fetch->conn->prepare($sql);
+                $query = $fetch->conn->prepare("UPDATE {$source['table']} SET {$source['fname']}=?, {$source['lname']}=?, {$source['email']}=? WHERE {$source['idCol']}=?");
                 $query->bind_param("ssss", $fname, $lname, $newEmail, $id);
             }
         }
@@ -145,13 +122,10 @@ try {
 
         // Fetch updated user row and update session if this is the logged-in user
         $updatedUser = $fetch->getUserByID($role, $id);
-        if (!$updatedUser) {
-            @file_put_contents($logFile, "warning: getUserByID returned null for role={$role} id={$id}\n", FILE_APPEND);
-        }
         // If the current session user matches, update session vars
         if (session_status() !== PHP_SESSION_ACTIVE) @session_start();
         $sessId = $_SESSION['ClientID'] ?? $_SESSION['VetID'] ?? $_SESSION['AdminID'] ?? null;
-        if ($sessId && $sessId === $id && is_array($updatedUser)) {
+        if ($sessId && $sessId === $id) {
             // Write back common session keys depending on role
             if ($role === 'client') {
                 $_SESSION['ClientFName'] = $updatedUser[$source['fname']] ?? $_SESSION['ClientFName'];
@@ -195,10 +169,7 @@ try {
     $newId = $target['prefix'] . str_pad($num, 3, '0', STR_PAD_LEFT);
 
     // Insert into target table
-    $insSql = "INSERT INTO {$target['table']} ({$target['idCol']}, {$target['fname']}, {$target['lname']}, {$target['email']}, {$target['pass']}, {$target['pic']}, {$target['start']}) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $insValues = [ $newId, $userData[$source['fname']], $userData[$source['lname']], $userData[$source['email']], '***', $userData[$source['pic']], $userData[$source['start']] ];
-    @file_put_contents($logFile, "prepared_sql=" . $insSql . "\nvalues=" . print_r($insValues, true) . "\n", FILE_APPEND);
-    $query = $fetch->conn->prepare($insSql);
+    $query = $fetch->conn->prepare("INSERT INTO {$target['table']} ({$target['idCol']}, {$target['fname']}, {$target['lname']}, {$target['email']}, {$target['pass']}, {$target['pic']}, {$target['start']}) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $query->bind_param(
         "sssssss",
         $newId,
@@ -213,9 +184,7 @@ try {
     @file_put_contents($logFile, "insert_execute_ok=" . ($query ? '1' : '0') . " error=" . $fetch->conn->error . "\n", FILE_APPEND);
 
     // Delete from source table
-    $delSql = "DELETE FROM {$source['table']} WHERE {$source['idCol']}=?";
-    @file_put_contents($logFile, "prepared_sql=" . $delSql . "\nvalues=" . print_r([$id], true) . "\n", FILE_APPEND);
-    $del = $fetch->conn->prepare($delSql);
+    $del = $fetch->conn->prepare("DELETE FROM {$source['table']} WHERE {$source['idCol']}=?");
     $del->bind_param("s", $id);
     $del->execute();
 

@@ -77,72 +77,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         populateTable("#vet-table", data.vets, "vet");
         populateTable("#client-table", data.clients, "client");
 
-        // --- Search functionality (filter in-memory users by ID / name / email) ---
-        const searchInput = document.querySelector(".admin-search-input");
-        const searchBtn = document.querySelector(".admin-search-btn");
-
-        function safeLower(s) {
-            return (s || "").toString().toLowerCase();
-        }
-
-        function filterAndPopulate(term) {
-            const q = (term || "").toString().trim().toLowerCase();
-
-            // If blank, restore full lists
-            if (!q) {
-                populateTable("#admin-table", data.admins, "admin");
-                populateTable("#vet-table", data.vets, "vet");
-                populateTable("#client-table", data.clients, "client");
-                return;
-            }
-
-            // Filter helpers per role
-            const adminFiltered = (data.admins || []).filter(u => {
-                const id = safeLower(u.AdminID);
-                const name = safeLower(`${u.AdminFName || ''} ${u.AdminSName || ''}`);
-                const email = safeLower(u.AdminEmail);
-                return id.includes(q) || name.includes(q) || email.includes(q);
-            });
-
-            const vetFiltered = (data.vets || []).filter(u => {
-                const id = safeLower(u.VetID);
-                const name = safeLower(`${u.VetFName || ''} ${u.VetSName || ''}`);
-                const email = safeLower(u.VetEmail);
-                return id.includes(q) || name.includes(q) || email.includes(q);
-            });
-
-            const clientFiltered = (data.clients || []).filter(u => {
-                const id = safeLower(u.ClientID);
-                const name = safeLower(`${u.ClientFName || ''} ${u.ClientLName || ''}`);
-                const email = safeLower(u.ClientEmail);
-                return id.includes(q) || name.includes(q) || email.includes(q);
-            });
-
-            populateTable("#admin-table", adminFiltered, "admin");
-            populateTable("#vet-table", vetFiltered, "vet");
-            populateTable("#client-table", clientFiltered, "client");
-        }
-
-        // Live search as user types
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => filterAndPopulate(e.target.value));
-            searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    filterAndPopulate(searchInput.value);
-                }
-            });
-        }
-
-        // Button click (some markup nests the icon/button; guard existence)
-        if (searchBtn) {
-            searchBtn.addEventListener('click', (e) => {
-                // Prevent accidentally submitting if button is inside a form
-                e.preventDefault();
-                filterAndPopulate(searchInput ? searchInput.value : '');
-            });
-        }
-
     } catch (error) {
         console.error("Error fetching users:", error);
         Swal.fire({
@@ -183,14 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 tr.remove();
                 Swal.fire({ icon: "success", title: "Deleted!", text: result.message, timer: 1200, showConfirmButton: false });
             } else {
-                // Check for common MySQL foreign-key error indicators and show a friendlier message
-                const msg = (result && result.message) ? result.message.toString().toLowerCase() : "";
-                if (msg.includes("cannot delete or update a parent row") || msg.includes("foreign key constraint") || msg.includes("foreign key")) {
-                    // Show the exact message requested when a FK constraint prevents deletion
-                    Swal.fire({ icon: "error", title: "Invalid action!", text: "Cannot delete test users" });
-                } else {
-                    Swal.fire({ icon: "error", title: "Error", text: result.message || "Failed to delete user." });
-                }
+                Swal.fire({ icon: "error", title: "Error", text: result.message || "Failed to delete user." });
             }
         } catch (err) {
             console.error("Delete error:", err);
