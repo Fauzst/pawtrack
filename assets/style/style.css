@@ -799,6 +799,20 @@ body {
   z-index: 1;
 }
 
+/* User popout styles */
+.user-popout.hidden{ display:none; }
+.user-popout{ position:fixed; right:18px; top:70px; z-index:1200; transition:opacity .18s ease; }
+.user-popout.visible{ display:block; }
+.user-popout-card{ width:320px; background:#fff; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.12); padding:14px; font-size:14px; }
+.user-popout-card h3{ margin:0 0 8px 0; font-size:16px }
+.user-popout-card .close-popout{ float:right; background:transparent; border:none; font-size:20px; cursor:pointer }
+.popout-row{ margin-bottom:8px; display:flex; flex-direction:column }
+.popout-row label{ font-size:12px; color:#444; margin-bottom:4px }
+.popout-row input[type="text"], .popout-row input[type="email"]{ padding:8px; border:1px solid #ddd; border-radius:4px }
+.popout-pic-preview{ width:64px; height:64px; object-fit:cover; border-radius:50%; margin-top:8px; display:none }
+.popout-actions{ display:flex; gap:8px; justify-content:flex-end }
+.popout-msg{ margin-top:8px; color:green; font-size:13px }
+
 .vet-sidebar {
   flex: 0 0 220px;
 }
@@ -1445,4 +1459,12 @@ body {
 }
 .submit-btn:hover {
   background-color: #4cae4c;
+}
+
+.swal2-container {
+  z-index: 99999 !important; /* Force the alert and loading to be above all elements */
+}
+
+.user-popout {
+  z-index: 99998 !important; /* Popout slightly below the Swal modals */
 }

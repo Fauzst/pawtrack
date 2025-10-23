@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 : response.status === 404
                 ? "Email Not Found"
                 : "Something went wrong",
-            text: data.message,
+            text: "Password or email is incorrect. Please try again.",
           });
           return;
         }

@@ -58,7 +58,7 @@ include(__DIR__ . "/../partials/head.php");
                         <p><strong>Name:</strong> <span id="vetNameFull">Loading...</span></p>
                         <p><strong>Role:</strong> Veterinarian</p>
                         <p><strong>Employee ID:</strong> <span id="vetID">Loading...</span></p>
-                        <p><strong>Clinic Branch:</strong> Bethlehem Animal Clinic – Quezon City</p>
+                        <p><strong>Clinic Branch:</strong> <span id="vetClinic">Bethlehem Animal Clinic – Quezon City</span></p>
                     </div>
                     <div class="vet-info-col">
                         <p><strong>Specialization:</strong> <span id="vetSpecialization">N/A</span></p>
@@ -82,6 +82,7 @@ include(__DIR__ . "/../partials/head.php");
 
     <!-- ✅ Load External Fetch Script -->
     <script src="/assets/js/fetch-vet-profile.js"></script>
+    <script src="/assets/js/user-popout.js"></script>
 
 </body>
 </html>

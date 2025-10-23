@@ -61,12 +61,32 @@ function openAddPetModal() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // ✅ Step 1: Confirm before saving
+    const confirmAdd = await Swal.fire({
+      title: "Add this pet?",
+      text: "Are you sure you want to add this new pet record?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, add pet",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!confirmAdd.isConfirmed) return;
+
+    // ✅ Step 2: Show loading alert
+    Swal.fire({
+      title: "Adding pet...",
+      text: "Please wait while we save the new pet record.",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
+    });
+
     const formData = new FormData(form);
 
     try {
       const response = await fetch("/backend/add-pet-api.php", {
         method: "POST",
-        body: formData
+        body: formData,
       });
 
       const contentType = response.headers.get("content-type");
@@ -76,23 +96,27 @@ function openAddPetModal() {
 
       const data = await response.json();
 
+      Swal.close(); // close loading state
+
       if (data.status === "success") {
-        Swal.fire({
+        // ✅ Step 3: Success alert + reload
+        await Swal.fire({
           icon: "success",
-          title: "Success",
-          text: data.message,
-          timer: 2000,
-          showConfirmButton: false
+          title: "Pet Added!",
+          text: data.message || "New pet has been added successfully.",
+          timer: 1500,
+          showConfirmButton: false,
         });
 
         closeAddPetModal();
 
-        // Dynamically add the new pet card to the pets list
-        appendNewPetCard(data.PetID, formData.get("PetName"), data.PetPic);
+        // Optional: reload so new image/cards show up
+        setTimeout(() => location.reload(), 1000);
       } else {
-        Swal.fire("Error", data.message, "error");
+        Swal.fire("Error", data.message || "Failed to add pet.", "error");
       }
     } catch (err) {
+      Swal.close();
       console.error("Fetch Error:", err);
       Swal.fire("Error", "Failed to add pet.", "error");
     }
@@ -103,22 +127,4 @@ function openAddPetModal() {
 function closeAddPetModal() {
   const modal = document.getElementById("addPetModal");
   if (modal) modal.remove();
-}
-
-// Helper function to append new pet card dynamically
-function appendNewPetCard(petID, petName, petPic) {
-  const petsContainer = document.querySelector(".pets-container");
-  if (!petsContainer) return;
-
-  const card = document.createElement("a");
-  card.href = `pets.php?pet_id=${encodeURIComponent(petID)}`;
-  card.className = "pet-card clickable";
-
-  const img = document.createElement("img");
-  img.src = petPic ? `/storage/images/pets/${petPic}` : "/assets/images/petsamples.png";
-  img.alt = petName;
-  img.className = "pet-image";
-
-  card.appendChild(img);
-  petsContainer.appendChild(card);
 }

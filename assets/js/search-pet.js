@@ -22,18 +22,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // ------------------- SEARCH PET BY MICROCHIP -------------------
   const searchPet = async () => {
     const query = searchInput.value.trim();
-    if (!query) return alert("Please enter Microchip Number.");
+    if (!query) return Swal.fire("Missing Input", "Please enter Microchip Number.", "warning");
 
     try {
+      Swal.fire({
+        title: "Searching...",
+        text: "Please wait while we look up the pet record.",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
       const response = await fetch("/backend/fetch-pet-api.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `PetChipNum=${encodeURIComponent(query)}`
       });
 
-      if (!response.ok) return alert(`Server returned status ${response.status}`);
+      if (!response.ok) {
+        Swal.close();
+        return Swal.fire("Error", `Server returned status ${response.status}`, "error");
+      }
+
       const data = await response.json();
-      if (data.status !== "success") return alert(data.message);
+      Swal.close();
+
+      if (data.status !== "success") return Swal.fire("Not Found", data.message, "warning");
 
       const pet = data.details;
       currentPet = pet;
@@ -61,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } catch (error) {
       console.error("Fetch Error:", error);
-      alert("Error fetching pet details.");
+      Swal.fire("Error", "Error fetching pet details.", "error");
     }
   };
 
@@ -85,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ------------------------- POPUP CREATION ------------------------- */
 function openPopoutForm(type, petID, petName, clientID) {
-  if (!petID || !petName) return alert("Please search a pet first.");
+  if (!petID || !petName) return Swal.fire("No Pet Selected", "Please search a pet first.", "warning");
 
   const popoutID = `${type}-${petID}`;
   let popout = document.getElementById(popoutID);
@@ -191,18 +204,38 @@ function openPopoutForm(type, petID, petName, clientID) {
         else if (type === "write-note") endpoint = "/backend/upload-note.php";
 
         try {
+          Swal.fire({
+            title: "Saving...",
+            text: "Please wait while we save the record.",
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+          });
+
           const res = await fetch(endpoint, { method: "POST", body: formData });
           const result = await res.json();
 
+          Swal.close();
+
           if (result.status === "success") {
-            alert("✅ Record saved successfully!");
-            togglePopout(popoutID);
+            Swal.fire({
+              icon: "success",
+              title: "Record Saved!",
+              text: "The record was successfully uploaded.",
+              confirmButtonColor: "#3085d6"
+            }).then(() => {
+              togglePopout(popoutID);
+              location.reload(); // 🔄 reload page to reflect updated image/info
+            });
           } else {
-            alert(result.message || "❌ Failed to save record.");
+            Swal.fire({
+              icon: "error",
+              title: "Failed!",
+              text: result.message || "An error occurred while saving."
+            });
           }
         } catch (err) {
           console.error("Error saving record:", err);
-          alert("Error saving record.");
+          Swal.fire("Error", "Unable to save the record. Please try again.", "error");
         }
       });
     }
@@ -223,8 +256,8 @@ function formatType(type) {
 }
 
 /* ------------------------- POPUP FOR RECORD TABLES ------------------------- */
-function openPopout(type, petID, petName) {
-  if (!petID || !petName) return alert("Please search a pet first.");
+async function openPopout(type, petID, petName) {
+  if (!petID || !petName) return Swal.fire("No Pet Selected", "Please search a pet first.", "warning");
 
   const popoutID = `${type}-${petID}`;
   let popout = document.getElementById(popoutID);
@@ -245,9 +278,7 @@ function openPopout(type, petID, petName) {
     `;
 
     document.body.appendChild(popout);
-
-    // Fetch and display table data
-    fetchRecords(type, petID, popout.querySelector(".popout-body"));
+    await fetchRecords(type, petID, popout.querySelector(".popout-body"));
   }
 
   popout.style.display = "block";
@@ -274,64 +305,28 @@ async function fetchRecords(type, petID, container) {
       return;
     }
 
-    // Generate table HTML depending on record type
     let tableHTML = "<table class='vet-table'><thead><tr>";
 
     if (type === "records-vaccination") {
       tableHTML += `
-        <th>Shot Type</th>
-        <th>Date</th>
-        <th>Next Due</th>
-        <th>Veterinarian</th>
-        <th>Clinic</th>
+        <th>Shot Type</th><th>Date</th><th>Next Due</th><th>Veterinarian</th><th>Clinic</th>
       </tr></thead><tbody>`;
       data.records.forEach(r => {
-        tableHTML += `
-          <tr>
-            <td>${r.ShotType}</td>
-            <td>${r.Date}</td>
-            <td>${r.NextDueDate}</td>
-            <td>${r.Veterinarian}</td>
-            <td>${r.Clinic}</td>
-          </tr>`;
+        tableHTML += `<tr><td>${r.ShotType}</td><td>${r.Date}</td><td>${r.NextDueDate}</td><td>${r.Veterinarian}</td><td>${r.Clinic}</td></tr>`;
       });
-    }
-
-    else if (type === "records-medical") {
+    } else if (type === "records-medical") {
       tableHTML += `
-        <th>Diagnosis</th>
-        <th>Date Diagnosed</th>
-        <th>Treatment</th>
-        <th>Notes</th>
+        <th>Diagnosis</th><th>Date Diagnosed</th><th>Treatment</th><th>Notes</th>
       </tr></thead><tbody>`;
       data.records.forEach(r => {
-        tableHTML += `
-          <tr>
-            <td>${r.Diagnosis}</td>
-            <td>${r.DateDiagnosed}</td>
-            <td>${r.Treatment}</td>
-            <td>${r.Notes || "-"}</td>
-          </tr>`;
+        tableHTML += `<tr><td>${r.Diagnosis}</td><td>${r.DateDiagnosed}</td><td>${r.Treatment}</td><td>${r.Notes || "-"}</td></tr>`;
       });
-    }
-
-    else if (type === "records-notes") {
+    } else if (type === "records-notes") {
       tableHTML += `
-        <th>Veterinarian</th>
-        <th>Clinic</th>
-        <th>Visit Type</th>
-        <th>Notes</th>
-        <th>Follow Up</th>
+        <th>Veterinarian</th><th>Clinic</th><th>Visit Type</th><th>Notes</th><th>Follow Up</th>
       </tr></thead><tbody>`;
       data.records.forEach(r => {
-        tableHTML += `
-          <tr>
-            <td>${r.Veterinarian}</td>
-            <td>${r.Clinic}</td>
-            <td>${r.VisitType}</td>
-            <td>${r.Notes || "-"}</td>
-            <td>${r.FollowUp || "-"}</td>
-          </tr>`;
+        tableHTML += `<tr><td>${r.Veterinarian}</td><td>${r.Clinic}</td><td>${r.VisitType}</td><td>${r.Notes || "-"}</td><td>${r.FollowUp || "-"}</td></tr>`;
       });
     }
 
@@ -345,10 +340,16 @@ async function fetchRecords(type, petID, container) {
 
 /* ------------------------- DOWNLOAD FULL RECORD ------------------------- */
 async function downloadFullRecord(petID, petName) {
-  if (!petID) return alert("Please search a pet first.");
+  if (!petID) return Swal.fire("No Pet Selected", "Please search a pet first.", "warning");
 
   try {
-    // Request a blob (binary PDF file) from backend
+    Swal.fire({
+      title: "Preparing Download...",
+      text: "Generating the full pet record PDF.",
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading()
+    });
+
     const res = await fetch("/backend/download-pet-record.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -357,22 +358,21 @@ async function downloadFullRecord(petID, petName) {
 
     if (!res.ok) throw new Error(`Server returned ${res.status}`);
 
-    // Convert response to a Blob (PDF)
     const blob = await res.blob();
-
-    // Create a download link
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `${petName.replace(/\s+/g, "_")}_Full_Record.pdf`;
     document.body.appendChild(a);
     a.click();
-
-    // Cleanup
     a.remove();
     window.URL.revokeObjectURL(url);
+
+    Swal.close();
+    Swal.fire("Success", "Full record downloaded successfully.", "success");
   } catch (err) {
+    Swal.close();
     console.error("Download error:", err);
-    alert("❌ Failed to download full record.");
+    Swal.fire("Error", "❌ Failed to download full record.", "error");
   }
 }

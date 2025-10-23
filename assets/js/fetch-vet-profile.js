@@ -22,6 +22,17 @@ document.addEventListener("DOMContentLoaded", function () {
           const vetEmailTag = document.getElementById("vetEmail");
           if (vetIdTag) vetIdTag.textContent = vet.VetID || ''; 
           if (vetEmailTag) vetEmailTag.textContent = vet.VetEmail || '';
+          // Vet-specific fields
+          const vetSpecTag = document.getElementById('vetSpecialization');
+          const vetLicenseTag = document.getElementById('vetLicense');
+          const vetExpTag = document.getElementById('vetExperience');
+          const vetContactTag = document.getElementById('vetContact');
+          const vetClinicTag = document.getElementById('vetClinic');
+          if (vetSpecTag) vetSpecTag.textContent = vet.VetSpecialization || 'N/A';
+          if (vetLicenseTag) vetLicenseTag.textContent = vet.VetLicenseNo || 'N/A';
+          if (vetExpTag) vetExpTag.textContent = vet.VetExperience || 'N/A';
+          if (vetContactTag) vetContactTag.textContent = vet.VetContact || 'N/A';
+          if (vetClinicTag) vetClinicTag.textContent = vet.ClinicBranch || 'N/A';
         }
       });
   }

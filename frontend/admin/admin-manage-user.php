@@ -25,7 +25,6 @@ $pageTitle = "PawTrack - Audit Logs";
                 </button>
             </div>
             <div class="admin-nav-icon">
-                <i class="fa-solid fa-user"></i>
             </div>
         </div>
     </nav>
